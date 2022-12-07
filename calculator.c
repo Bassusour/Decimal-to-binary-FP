@@ -46,7 +46,7 @@ char* bin(uint64_t n) {
 }
 
 int main() {
-  uint64_t val;
+  double val;
   printf("input number: ");
   scanf("%lf", &val);
 
@@ -62,6 +62,14 @@ int main() {
   binary32.sign = binary64.sign;
   binary32.exp = binary64.exp - binary64.bias + binary32.bias;
   binary32.fract = (binary64.fract >> 29) & 0x7fffff; //23 1's 0x7fffff
+
+  if(val > 65504) {
+    printf("binary16 overflow. Result is +inf \n");
+  } else if(val < -65504) {
+    printf("binary16 underflow. Result is -inf \n");
+  } else if(val < 0.00006103515625){
+    printf("binary16 is subnormal \n");
+  }
 
   binary16.bias = 15;
   binary16.sign = binary32.sign;
