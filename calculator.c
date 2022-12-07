@@ -58,6 +58,12 @@ int main() {
   binary64.exp = (val2 >> 52) & 0x7FF; //11 1's
   binary64.fract = val2 & 0xffffffffffffffff; //52 1's 54
   
+  if(val > 3.4028234664e38) {
+    printf("binary32 overflow. Result is +inf \n");
+  } else if(val < -3.4028234664e38) {
+    printf("binary32 underflow. Result is -inf \n");
+  } 
+
   binary32.bias = 127;
   binary32.sign = binary64.sign;
   binary32.exp = binary64.exp - binary64.bias + binary32.bias;
@@ -67,7 +73,7 @@ int main() {
     printf("binary16 overflow. Result is +inf \n");
   } else if(val < -65504) {
     printf("binary16 underflow. Result is -inf \n");
-  } else if(val < 0.00006103515625){
+  } else if(val < 0.000060975552){
     printf("binary16 is subnormal \n");
   }
 
